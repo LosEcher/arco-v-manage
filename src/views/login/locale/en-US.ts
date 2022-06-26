@@ -6,7 +6,7 @@ export default {
   'login.form.login.success': 'welcome to use',
   'login.form.userName.placeholder': 'Username: admin',
   'login.form.password.placeholder': 'Password: admin',
-  'login.form.rememberPassword': 'Remember password',
+  'login.form.rememberUsername': 'Remember Username',
   'login.form.forgetPassword': 'Forgot password',
   'login.form.login': 'login',
   'login.form.register': 'register account',

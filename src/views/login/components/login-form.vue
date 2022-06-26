@@ -44,11 +44,11 @@
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
           <a-checkbox
-            checked="rememberPassword"
-            :model-value="loginConfig.rememberPassword"
-            @change="(setRememberPassword as any)"
+            checked="rememberUsername"
+            :model-value="loginConfig.rememberUsername"
+            @change="(setRememberUsername as any)"
           >
-            {{ $t('login.form.rememberPassword') }}
+            {{ $t('login.form.rememberUsername') }}
           </a-checkbox>
           <a-link>{{ $t('login.form.forgetPassword') }}</a-link>
         </div>
@@ -81,7 +81,7 @@
   const userStore = useUserStore();
 
   const loginConfig = useStorage('login-config', {
-    rememberPassword: true,
+    rememberUsername: true,
     username: 'admin', // 演示默认值
     password: 'admin', // demo default value
   });
@@ -109,12 +109,15 @@
           },
         });
         Message.success(t('login.form.login.success'));
-        const { rememberPassword } = loginConfig.value;
-        const { username, password } = values;
+        const { rememberUsername } = loginConfig.value;
+        // const { username, password } = values;
         // 实际生产环境需要进行加密存储。
         // The actual production environment requires encrypted storage.
-        loginConfig.value.username = rememberPassword ? username : '';
-        loginConfig.value.password = rememberPassword ? password : '';
+        errorMessage.value = '';
+        loginConfig.value.username = rememberUsername ? values.username : '';
+        // loginConfig.value.username = rememberUsername ? username : '';
+        loginConfig.value.password = '';
+        // loginConfig.value.password = rememberUsername ? password : '';
       } catch (err) {
         errorMessage.value = (err as Error).message;
       } finally {
@@ -122,8 +125,8 @@
       }
     }
   };
-  const setRememberPassword = (value: boolean) => {
-    loginConfig.value.rememberPassword = value;
+  const setRememberUsername = (value: boolean) => {
+    loginConfig.value.rememberUsername = value;
   };
 </script>
 

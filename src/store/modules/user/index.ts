@@ -4,13 +4,15 @@ import {
   logout as userLogout,
   getUserInfo,
   LoginData,
+  LogoutRes,
 } from '@/api/user';
-import { setToken, clearToken } from '@/utils/auth';
+import { getID, setToken, setID, setRole, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
+    id: undefined,
     name: undefined,
     avatar: undefined,
     job: undefined,
@@ -64,6 +66,11 @@ const useUserStore = defineStore('user', {
       try {
         const res = await userLogin(loginForm);
         setToken(res.data.token);
+        // window.localStorage.setItem('userRole', 'admin');
+        // window.localStorage.setItem('userRole', 'user');
+        // setRole
+        setID(res.data.id);
+        setRole(res.data.roles);
       } catch (err) {
         clearToken();
         throw err;
@@ -72,8 +79,11 @@ const useUserStore = defineStore('user', {
 
     // Logout
     async logout() {
-      await userLogout();
-
+      const logoutInfo: LogoutRes = {
+        id: this.id?.toString() || getID()?.toString(),
+        roles: this.role?.toString(),
+      };
+      await userLogout(logoutInfo);
       this.resetInfo();
       clearToken();
       removeRouteListener();

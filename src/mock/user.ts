@@ -8,17 +8,18 @@ import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 setupMock({
+  mock: false,
   setup() {
     // Mock.XHR.prototype.withCredentials = true;
 
     // 用户信息
     Mock.mock(new RegExp('/api/user/info'), () => {
       if (isLogin()) {
-        const role = window.localStorage.getItem('userRole') || 'admin';
+        // const role = window.localStorage.getItem('userRole') || 'admin';
         return successResponseWrap({
+          id: '611fb71f7ab307d4c7259ecf',
           name: '王立群',
-          avatar:
-            '//lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
+          avatar: '',
           email: 'wangliqun@email.com',
           job: 'frontend',
           jobName: '前端艺术家',
@@ -32,7 +33,7 @@ setupMock({
           registrationDate: '2013-05-10 12:10:00',
           accountId: '15012312300',
           certification: 1,
-          role,
+          role: 'admin',
         });
       }
       return failResponseWrap(null, '未登录', 50008);
@@ -66,7 +67,7 @@ setupMock({
       return successResponseWrap(null);
     });
 
-    // 登出
+    // 菜单
     Mock.mock(new RegExp('/api/user/menu'), () => {
       const menuList = [
         {

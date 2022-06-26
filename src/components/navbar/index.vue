@@ -14,7 +14,7 @@
         </a-typography-title>
         <icon-menu-fold
           v-if="appStore.device === 'mobile'"
-          style="font-size: 22px; cursor: pointer"
+          class="nav-btn"
           @click="toggleDrawerMenu"
         />
       </a-space>
@@ -267,15 +267,24 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
+
+    .nav-btn {
+      order-color: rgb(var(--gray-2));
+      color: rgb(var(--gray-8));
+      font-size: 22px;
+      cursor: pointer;
+    }
   }
 
   .right-side {
     display: flex;
     padding-right: 20px;
     list-style: none;
+
     :deep(.locale-select) {
       border-radius: 20px;
     }
+
     li {
       display: flex;
       align-items: center;
@@ -286,16 +295,19 @@
       color: var(--color-text-1);
       text-decoration: none;
     }
+
     .nav-btn {
-      border-color: rgb(var(--gray-2));
       color: rgb(var(--gray-8));
       font-size: 16px;
+      border-color: rgb(var(--gray-2));
     }
+
     .trigger-btn,
     .ref-btn {
       position: absolute;
       bottom: 14px;
     }
+
     .trigger-btn {
       margin-left: 14px;
     }
